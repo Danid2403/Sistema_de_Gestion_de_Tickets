@@ -1,0 +1,6 @@
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\Entidades\bin\Debug\Entidades.dll
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\Entidades\bin\Debug\Entidades.pdb
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\Entidades\obj\Debug\Entidades.csproj.AssemblyReference.cache
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\Entidades\obj\Debug\Entidades.dll
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\Entidades\obj\Debug\Entidades.pdb

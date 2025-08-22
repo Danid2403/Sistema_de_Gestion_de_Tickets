@@ -1,0 +1,47 @@
+﻿@model Entidades.sp_ObtenerUsuarioPorId_Result
+
+@{
+    ViewBag.Title = "Eliminar Usuario";
+}
+
+<h2>¿Estás seguro que deseas eliminar este usuario?</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Nombre</dt>
+        <dd>@Model.Nombre</dd>
+
+        <dt>Cédula</dt>
+        <dd>@Model.Cedula</dd>
+
+        <dt>Departamento</dt>
+        <dd>@Model.Departamento</dd>
+
+        <dt>Contacto</dt>
+        <dd>@Model.Contacto</dd>
+
+        <dt>Correo</dt>
+        <dd>@Model.Correo</dd>
+
+        <dt>Tipo</dt>
+        <dd>@Model.Tipo</dd>
+
+        <dt>Rol</dt>
+        <dd>@Model.Rol</dd>
+
+        <dt>Activo</dt>
+        <dd>@(Model.Activo.HasValue && Model.Activo.Value ? "Sí" : "No")</dd>
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Usuarios", new { id = Model.Id }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken() 
+
+        <div class="form-group">
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    }
+</div>

@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="STModelStoreContainer" CdmEntityContainer="STEntities">
+    <EntitySetMapping Name="BitacoraTickets">
+      <EntityTypeMapping TypeName="STModel.BitacoraTickets">
+        <MappingFragment StoreEntitySet="BitacoraTickets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Evidencia" ColumnName="Evidencia" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+          <ScalarProperty Name="FechaFinalizado" ColumnName="FechaFinalizado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Seguimientos">
+      <EntityTypeMapping TypeName="STModel.Seguimientos">
+        <MappingFragment StoreEntitySet="Seguimientos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="STModel.Tickets">
+        <MappingFragment StoreEntitySet="Tickets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Evidencia" ColumnName="Evidencia" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="STModel.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+          <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_ActualizarTicket" FunctionName="STModel.Store.sp_ActualizarTicket" />
+    <FunctionImportMapping FunctionImportName="sp_ActualizarUsuario" FunctionName="STModel.Store.sp_ActualizarUsuario" />
+    <FunctionImportMapping FunctionImportName="sp_EliminarTicket" FunctionName="STModel.Store.sp_EliminarTicket" />
+    <FunctionImportMapping FunctionImportName="sp_EliminarUsuario" FunctionName="STModel.Store.sp_EliminarUsuario" />
+    <FunctionImportMapping FunctionImportName="sp_InsertarSeguimiento" FunctionName="STModel.Store.sp_InsertarSeguimiento" />
+    <FunctionImportMapping FunctionImportName="sp_InsertarTicket" FunctionName="STModel.Store.sp_InsertarTicket" />
+    <FunctionImportMapping FunctionImportName="sp_InsertarUsuario" FunctionName="STModel.Store.sp_InsertarUsuario" />
+    <FunctionImportMapping FunctionImportName="sp_ListarBitacora" FunctionName="STModel.Store.sp_ListarBitacora">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="STModel.sp_ListarBitacora_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="FechaFinalizado" ColumnName="FechaFinalizado" />
+          <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+          <ScalarProperty Name="NombreSoportista" ColumnName="NombreSoportista" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ListarSeguimientosPorTicket" FunctionName="STModel.Store.sp_ListarSeguimientosPorTicket">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="STModel.sp_ListarSeguimientosPorTicket_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ListarTickets" FunctionName="STModel.Store.sp_ListarTickets">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="STModel.sp_ListarTickets_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+          <ScalarProperty Name="NombreSoportista" ColumnName="NombreSoportista" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ListarUsuarios" FunctionName="STModel.Store.sp_ListarUsuarios">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="STModel.sp_ListarUsuarios_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+          <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LoginUsuario" FunctionName="STModel.Store.sp_LoginUsuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="STModel.sp_LoginUsuario_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+          <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_MoverTicketABitacora" FunctionName="STModel.Store.sp_MoverTicketABitacora" />
+    <FunctionImportMapping FunctionImportName="sp_ObtenerTicketPorId" FunctionName="STModel.Store.sp_ObtenerTicketPorId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="STModel.sp_ObtenerTicketPorId_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="CorreoUsuario" ColumnName="CorreoUsuario" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="Evidencia" ColumnName="Evidencia" />
+          <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+          <ScalarProperty Name="NombreSoportista" ColumnName="NombreSoportista" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ObtenerUsuarioPorId" FunctionName="STModel.Store.sp_ObtenerUsuarioPorId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="STModel.sp_ObtenerUsuarioPorId_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+          <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

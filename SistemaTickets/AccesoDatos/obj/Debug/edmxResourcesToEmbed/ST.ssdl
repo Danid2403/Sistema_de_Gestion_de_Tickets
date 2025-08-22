@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="STModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BitacoraTickets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UsuarioId" Type="int" />
+    <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Descripcion" Type="nvarchar(max)" />
+    <Property Name="Categoria" Type="nvarchar" MaxLength="50" />
+    <Property Name="Estado" Type="nvarchar" MaxLength="50" />
+    <Property Name="Evidencia" Type="varbinary(max)" />
+    <Property Name="FechaIngreso" Type="datetime" />
+    <Property Name="SoportistaAsignadoId" Type="int" />
+    <Property Name="FechaFinalizado" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Seguimientos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TicketId" Type="int" />
+    <Property Name="Descripcion" Type="nvarchar(max)" />
+    <Property Name="Fecha" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tickets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsuarioId" Type="int" />
+    <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Descripcion" Type="nvarchar(max)" />
+    <Property Name="Categoria" Type="nvarchar" MaxLength="20" />
+    <Property Name="Estado" Type="nvarchar" MaxLength="50" />
+    <Property Name="Evidencia" Type="varbinary(max)" />
+    <Property Name="FechaIngreso" Type="datetime" />
+    <Property Name="SoportistaAsignadoId" Type="int" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+    <Property Name="Cedula" Type="nvarchar" MaxLength="20" />
+    <Property Name="Departamento" Type="nvarchar" MaxLength="100" />
+    <Property Name="Contacto" Type="nvarchar" MaxLength="20" />
+    <Property Name="Correo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Rol" Type="nvarchar" MaxLength="50" />
+    <Property Name="Activo" Type="bit" />
+    <Property Name="Contrasena" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK__Seguimien__Ticke__4316F928">
+    <End Role="Tickets" Type="Self.Tickets" Multiplicity="0..1" />
+    <End Role="Seguimientos" Type="Self.Seguimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tickets">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Seguimientos">
+        <PropertyRef Name="TicketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tickets__Usuario__3F466844">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_ActualizarTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Categoria" Type="nvarchar" Mode="In" />
+    <Parameter Name="Estado" Type="nvarchar" Mode="In" />
+    <Parameter Name="Evidencia" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="SoportistaAsignadoId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="Cedula" Type="nvarchar" Mode="In" />
+    <Parameter Name="Departamento" Type="nvarchar" Mode="In" />
+    <Parameter Name="Contacto" Type="nvarchar" Mode="In" />
+    <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Rol" Type="nvarchar" Mode="In" />
+    <Parameter Name="Activo" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_InsertarSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TicketId" Type="int" Mode="In" />
+    <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_InsertarTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UsuarioId" Type="int" Mode="In" />
+    <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Categoria" Type="nvarchar" Mode="In" />
+    <Parameter Name="Estado" Type="nvarchar" Mode="In" />
+    <Parameter Name="Evidencia" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="SoportistaAsignadoId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_InsertarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="Cedula" Type="nvarchar" Mode="In" />
+    <Parameter Name="Departamento" Type="nvarchar" Mode="In" />
+    <Parameter Name="Contacto" Type="nvarchar" Mode="In" />
+    <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Rol" Type="nvarchar" Mode="In" />
+    <Parameter Name="Activo" Type="bit" Mode="In" />
+    <Parameter Name="Contrasena" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarBitacora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ListarSeguimientosPorTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TicketId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarTickets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ListarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_LoginUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Contrasena" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_MoverTicketABitacora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ObtenerTicketPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ObtenerUsuarioPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="STModelStoreContainer">
+    <EntitySet Name="BitacoraTickets" EntityType="Self.BitacoraTickets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Seguimientos" EntityType="Self.Seguimientos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Seguimien__Ticke__4316F928" Association="Self.FK__Seguimien__Ticke__4316F928">
+      <End Role="Tickets" EntitySet="Tickets" />
+      <End Role="Seguimientos" EntitySet="Seguimientos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tickets__Usuario__3F466844" Association="Self.FK__Tickets__Usuario__3F466844">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

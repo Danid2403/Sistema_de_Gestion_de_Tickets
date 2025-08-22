@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Entidades.sp_ListarBitacora_Result>
+
+@{
+    ViewBag.Title = "Bitácora de Tickets Finalizados";
+}
+
+<h2>Bitácora de Tickets Finalizados</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Departamento</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th>Fecha Ingreso</th>
+            <th>Fecha Finalizado</th>
+            <th>Soportista</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bit in Model)
+        {
+            <tr>
+                <td>@bit.Id</td>
+                <td>@bit.NombreUsuario</td>
+                <td>@bit.Departamento</td>
+                <td>@bit.Tipo</td>
+                <td>@bit.Descripcion</td>
+                <td>@bit.Categoria</td>
+                <td>@bit.Estado</td>
+                <td>@(bit.FechaIngreso?.ToString("dd/MM/yyyy HH:mm"))</td>
+                <td>@(bit.FechaFinalizado?.ToString("dd/MM/yyyy HH:mm"))</td>
+                <td>@bit.NombreSoportista</td>
+            </tr>
+
+        
+
+    }
+        </tbody>
+    </table>

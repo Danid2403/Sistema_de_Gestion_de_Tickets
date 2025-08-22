@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="STModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BitacoraTickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="50" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="50" />
+          <Property Name="Evidencia" Type="varbinary(max)" />
+          <Property Name="FechaIngreso" Type="datetime" />
+          <Property Name="SoportistaAsignadoId" Type="int" />
+          <Property Name="FechaFinalizado" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Seguimientos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TicketId" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="20" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="50" />
+          <Property Name="Evidencia" Type="varbinary(max)" />
+          <Property Name="FechaIngreso" Type="datetime" />
+          <Property Name="SoportistaAsignadoId" Type="int" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Cedula" Type="nvarchar" MaxLength="20" />
+          <Property Name="Departamento" Type="nvarchar" MaxLength="100" />
+          <Property Name="Contacto" Type="nvarchar" MaxLength="20" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="100" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="50" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="Contrasena" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Seguimien__Ticke__4316F928">
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="0..1" />
+          <End Role="Seguimientos" Type="Self.Seguimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seguimientos">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tickets__Usuario__3F466844">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_ActualizarTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Categoria" Type="nvarchar" Mode="In" />
+          <Parameter Name="Estado" Type="nvarchar" Mode="In" />
+          <Parameter Name="Evidencia" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="SoportistaAsignadoId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cedula" Type="nvarchar" Mode="In" />
+          <Parameter Name="Departamento" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contacto" Type="nvarchar" Mode="In" />
+          <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Rol" Type="nvarchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_EliminarTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_EliminarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertarSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TicketId" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertarTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UsuarioId" Type="int" Mode="In" />
+          <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Categoria" Type="nvarchar" Mode="In" />
+          <Parameter Name="Estado" Type="nvarchar" Mode="In" />
+          <Parameter Name="Evidencia" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="SoportistaAsignadoId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cedula" Type="nvarchar" Mode="In" />
+          <Parameter Name="Departamento" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contacto" Type="nvarchar" Mode="In" />
+          <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Rol" Type="nvarchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="Contrasena" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ListarBitacora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ListarSeguimientosPorTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TicketId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ListarTickets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ListarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_LoginUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contrasena" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_MoverTicketABitacora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ObtenerTicketPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ObtenerUsuarioPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="STModelStoreContainer">
+          <EntitySet Name="BitacoraTickets" EntityType="Self.BitacoraTickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seguimientos" EntityType="Self.Seguimientos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Seguimien__Ticke__4316F928" Association="Self.FK__Seguimien__Ticke__4316F928">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="Seguimientos" EntitySet="Seguimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tickets__Usuario__3F466844" Association="Self.FK__Tickets__Usuario__3F466844">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="STModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BitacoraTickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Evidencia" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
+          <Property Name="SoportistaAsignadoId" Type="Int32" />
+          <Property Name="FechaFinalizado" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Seguimientos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TicketId" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK__Seguimien__Ticke__4316F928" FromRole="Seguimientos" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Categoria" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Evidencia" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
+          <Property Name="SoportistaAsignadoId" Type="Int32" />
+          <NavigationProperty Name="Seguimientos" Relationship="Self.FK__Seguimien__Ticke__4316F928" FromRole="Tickets" ToRole="Seguimientos" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Tickets__Usuario__3F466844" FromRole="Tickets" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Departamento" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Contacto" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="Contrasena" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK__Tickets__Usuario__3F466844" FromRole="Usuarios" ToRole="Tickets" />
+        </EntityType>
+        <Association Name="FK__Seguimien__Ticke__4316F928">
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="0..1" />
+          <End Role="Seguimientos" Type="Self.Seguimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seguimientos">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tickets__Usuario__3F466844">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="STEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BitacoraTickets" EntityType="Self.BitacoraTickets" />
+          <EntitySet Name="Seguimientos" EntityType="Self.Seguimientos" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK__Seguimien__Ticke__4316F928" Association="Self.FK__Seguimien__Ticke__4316F928">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="Seguimientos" EntitySet="Seguimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tickets__Usuario__3F466844" Association="Self.FK__Tickets__Usuario__3F466844">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <FunctionImport Name="sp_ActualizarTicket">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Categoria" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="String" />
+            <Parameter Name="Evidencia" Mode="In" Type="Binary" />
+            <Parameter Name="SoportistaAsignadoId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ActualizarUsuario">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Cedula" Mode="In" Type="String" />
+            <Parameter Name="Departamento" Mode="In" Type="String" />
+            <Parameter Name="Contacto" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+            <Parameter Name="Rol" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarTicket">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarUsuario">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertarSeguimiento">
+            <Parameter Name="TicketId" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertarTicket">
+            <Parameter Name="UsuarioId" Mode="In" Type="Int32" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Categoria" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="String" />
+            <Parameter Name="Evidencia" Mode="In" Type="Binary" />
+            <Parameter Name="SoportistaAsignadoId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertarUsuario">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Cedula" Mode="In" Type="String" />
+            <Parameter Name="Departamento" Mode="In" Type="String" />
+            <Parameter Name="Contacto" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+            <Parameter Name="Rol" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ListarBitacora" ReturnType="Collection(STModel.sp_ListarBitacora_Result)" />
+          <FunctionImport Name="sp_ListarSeguimientosPorTicket" ReturnType="Collection(STModel.sp_ListarSeguimientosPorTicket_Result)">
+            <Parameter Name="TicketId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ListarTickets" ReturnType="Collection(STModel.sp_ListarTickets_Result)" />
+          <FunctionImport Name="sp_ListarUsuarios" ReturnType="Collection(STModel.sp_ListarUsuarios_Result)" />
+          <FunctionImport Name="sp_LoginUsuario" ReturnType="Collection(STModel.sp_LoginUsuario_Result)">
+            <Parameter Name="Correo" Mode="In" Type="String" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_MoverTicketABitacora">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerTicketPorId" ReturnType="Collection(STModel.sp_ObtenerTicketPorId_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerUsuarioPorId" ReturnType="Collection(STModel.sp_ObtenerUsuarioPorId_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_ListarBitacora_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="UsuarioId" Nullable="true" />
+          <Property Type="String" Name="NombreUsuario" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaIngreso" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FechaFinalizado" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="SoportistaAsignadoId" Nullable="true" />
+          <Property Type="String" Name="NombreSoportista" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarSeguimientosPorTicket_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="TicketId" Nullable="true" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="DateTime" Name="Fecha" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarTickets_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="UsuarioId" Nullable="true" />
+          <Property Type="String" Name="NombreUsuario" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaIngreso" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="SoportistaAsignadoId" Nullable="true" />
+          <Property Type="String" Name="NombreSoportista" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarUsuarios_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Cedula" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Contacto" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Rol" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Activo" Nullable="true" />
+          <Property Type="String" Name="Contrasena" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_LoginUsuario_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Cedula" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Contacto" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Rol" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Activo" Nullable="true" />
+          <Property Type="String" Name="Contrasena" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerTicketPorId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="UsuarioId" Nullable="true" />
+          <Property Type="String" Name="NombreUsuario" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CorreoUsuario" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaIngreso" Nullable="true" Precision="23" />
+          <Property Type="Binary" Name="Evidencia" Nullable="true" />
+          <Property Type="Int32" Name="SoportistaAsignadoId" Nullable="true" />
+          <Property Type="String" Name="NombreSoportista" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerUsuarioPorId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Cedula" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Contacto" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Rol" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Activo" Nullable="true" />
+          <Property Type="String" Name="Contrasena" Nullable="true" MaxLength="100" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="STModelStoreContainer" CdmEntityContainer="STEntities">
+          <EntitySetMapping Name="BitacoraTickets">
+            <EntityTypeMapping TypeName="STModel.BitacoraTickets">
+              <MappingFragment StoreEntitySet="BitacoraTickets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Evidencia" ColumnName="Evidencia" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+                <ScalarProperty Name="FechaFinalizado" ColumnName="FechaFinalizado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seguimientos">
+            <EntityTypeMapping TypeName="STModel.Seguimientos">
+              <MappingFragment StoreEntitySet="Seguimientos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="STModel.Tickets">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Evidencia" ColumnName="Evidencia" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="STModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_ActualizarTicket" FunctionName="STModel.Store.sp_ActualizarTicket" />
+          <FunctionImportMapping FunctionImportName="sp_ActualizarUsuario" FunctionName="STModel.Store.sp_ActualizarUsuario" />
+          <FunctionImportMapping FunctionImportName="sp_EliminarTicket" FunctionName="STModel.Store.sp_EliminarTicket" />
+          <FunctionImportMapping FunctionImportName="sp_EliminarUsuario" FunctionName="STModel.Store.sp_EliminarUsuario" />
+          <FunctionImportMapping FunctionImportName="sp_InsertarSeguimiento" FunctionName="STModel.Store.sp_InsertarSeguimiento" />
+          <FunctionImportMapping FunctionImportName="sp_InsertarTicket" FunctionName="STModel.Store.sp_InsertarTicket" />
+          <FunctionImportMapping FunctionImportName="sp_InsertarUsuario" FunctionName="STModel.Store.sp_InsertarUsuario" />
+          <FunctionImportMapping FunctionImportName="sp_ListarBitacora" FunctionName="STModel.Store.sp_ListarBitacora">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="STModel.sp_ListarBitacora_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="FechaFinalizado" ColumnName="FechaFinalizado" />
+                <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+                <ScalarProperty Name="NombreSoportista" ColumnName="NombreSoportista" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarSeguimientosPorTicket" FunctionName="STModel.Store.sp_ListarSeguimientosPorTicket">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="STModel.sp_ListarSeguimientosPorTicket_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarTickets" FunctionName="STModel.Store.sp_ListarTickets">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="STModel.sp_ListarTickets_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+                <ScalarProperty Name="NombreSoportista" ColumnName="NombreSoportista" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarUsuarios" FunctionName="STModel.Store.sp_ListarUsuarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="STModel.sp_ListarUsuarios_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_LoginUsuario" FunctionName="STModel.Store.sp_LoginUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="STModel.sp_LoginUsuario_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_MoverTicketABitacora" FunctionName="STModel.Store.sp_MoverTicketABitacora" />
+          <FunctionImportMapping FunctionImportName="sp_ObtenerTicketPorId" FunctionName="STModel.Store.sp_ObtenerTicketPorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="STModel.sp_ObtenerTicketPorId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="CorreoUsuario" ColumnName="CorreoUsuario" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="Evidencia" ColumnName="Evidencia" />
+                <ScalarProperty Name="SoportistaAsignadoId" ColumnName="SoportistaAsignadoId" />
+                <ScalarProperty Name="NombreSoportista" ColumnName="NombreSoportista" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerUsuarioPorId" FunctionName="STModel.Store.sp_ObtenerUsuarioPorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="STModel.sp_ObtenerUsuarioPorId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

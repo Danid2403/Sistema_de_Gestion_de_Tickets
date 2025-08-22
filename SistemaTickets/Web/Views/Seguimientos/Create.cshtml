@@ -1,0 +1,22 @@
+﻿@model Entidades.Seguimientos
+
+@{
+    ViewBag.Title = "Agregar Seguimiento";
+}
+
+<h2>Agregar Seguimiento</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.TicketId)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Descripcion)
+        @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", rows = 4 })
+        @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-success">Agregar</button>
+    @Html.ActionLink("Volver al ticket", "Details", "Tickets", new { id = Model.TicketId }, new { @class = "btn btn-secondary" })
+}

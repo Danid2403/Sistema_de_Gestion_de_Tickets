@@ -1,0 +1,77 @@
+﻿@{
+    var usuario = Session["Usuario"] as Entidades.sp_LoginUsuario_Result;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema Tickets</title>
+
+    <!--Favicon -->
+    <link rel=" icon" type="image/png" href="~/Content/Images/LOGO.png" />
+
+    @* Carga los estilos (Bootstrap y personalizados) *@
+    @Styles.Render("~/Content/css")
+
+    <!-- Archivo de estilos personalizados para todo el sistema -->
+    <link href="~/Content/estilosTickets.css" rel="stylesheet" />
+
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("Sistema Tickets", "Index", "Home", null, new { @class = "navbar-brand" })
+
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    @if (usuario != null)
+                    {
+                        @* Opción general: todos los roles pueden ver Tickets *@
+                        <li>@Html.ActionLink("Tickets", "Index", "Tickets", null, new { @class = "nav-link" })</li>
+
+                        @* Menú exclusivo para el Supervisor *@
+                        if (usuario.Rol == "Supervisor")
+                        {
+                            <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", null, new { @class = "nav-link" })</li>
+                        }
+
+                        @* Supervisor y Soportista acceden a la bitácora *@
+                        if (usuario.Rol == "Supervisor" || usuario.Rol == "Soportista")
+                        {
+                            <li>@Html.ActionLink("Bitácora", "Bitacora", "Tickets", null, new { @class = "nav-link" })</li>
+                        }
+
+                        @* Botón para cerrar sesión *@
+                        <li>@Html.ActionLink("Cerrar Sesión", "CerrarSesion", "Login", null, new { @class = "nav-link text-danger" })</li>
+                    }
+                    else
+                    {
+                        @* Si no hay sesión activa, mostrar solo Login *@
+                        <li>@Html.ActionLink("Login", "Index", "Login", null, new { @class = "nav-link text-success" })</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Daniel Rodríguez</p>
+        </footer>
+    </div>
+
+    @* Scripts JS al final para mejor rendimiento *@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

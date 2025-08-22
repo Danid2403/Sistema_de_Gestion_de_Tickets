@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null; 
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema Tickets</title>
+    <!--Favicon -->
+    <link rel=" icon" type="image/png" href="~/Content/Images/LOGO.png" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #17a2b8;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        #login .container #login-row #login-column #login-box {
+            margin-top: 120px;
+            max-width: 400px;
+            height: auto;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        #login img {
+            display: block;
+            margin: 0 auto 15px auto;
+            max-width: 120px;
+        }
+
+        #login h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-info {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="login">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box">
+                        <!-- Logo -->
+                        <img src="~/Content/Images/LOGO.png" alt="Logo" />
+
+                        <!-- Formulario de login -->
+                        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <h3 class="text-info">¡Bienvenido!</h3>
+                            <div class="form-group">
+                                @Html.Label("Correo", htmlAttributes: new { @class = "text-info" })
+                                @Html.TextBox("correo", null, new { @class = "form-control", placeholder = "Ingrese su correo" })
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Contraseña", htmlAttributes: new { @class = "text-info" })
+                                @Html.Password("contrasena", null, new { @class = "form-control", placeholder = "Ingrese su contraseña" })
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Iniciar Sesion" class="btn btn-info btn-md" />
+                            </div>
+
+                            @* *@
+                            if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger text-center">@ViewBag.Error</div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

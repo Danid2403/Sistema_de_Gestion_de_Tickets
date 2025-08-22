@@ -1,0 +1,110 @@
+﻿@model Entidades.sp_ObtenerTicketPorId_Result
+@{
+    ViewBag.Title = "Detalles del Ticket";
+    var usuario = (Entidades.sp_LoginUsuario_Result)Session["Usuario"];
+}
+
+<h2>Detalles del Ticket</h2>
+@if (TempData["CorreoExito"] != null)
+{
+    <div class="alert alert-success">@TempData["CorreoExito"]</div>
+}
+@if (TempData["CorreoError"] != null)
+{
+    <div class="alert alert-danger">@TempData["CorreoError"]</div>
+}
+
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Usuario:</dt>
+            <dd class="col-sm-9">@Model.NombreUsuario</dd>
+
+            <dt class="col-sm-3">Departamento:</dt>
+            <dd class="col-sm-9">@Model.Departamento</dd>
+
+            <dt class="col-sm-3">Tipo:</dt>
+            <dd class="col-sm-9">@Model.Tipo</dd>
+
+            <dt class="col-sm-3">Descripción:</dt>
+            <dd class="col-sm-9">@Model.Descripcion</dd>
+
+            <dt class="col-sm-3">Categoría:</dt>
+            <dd class="col-sm-9">@Model.Categoria</dd>
+
+            <dt class="col-sm-3">Estado:</dt>
+            <dd class="col-sm-9">@Model.Estado</dd>
+
+            <dt class="col-sm-3">Fecha de Ingreso:</dt>
+            <dd class="col-sm-9">
+                @(Model.FechaIngreso.HasValue ? Model.FechaIngreso.Value.ToString("dd/MM/yyyy HH:mm") : "")
+            </dd>
+
+
+            <dt class="col-sm-3">Soportista:</dt>
+            <dd class="col-sm-9">@Model.NombreSoportista</dd>
+        </dl>
+    </div>
+</div>
+
+<hr />
+
+<h3>Seguimientos</h3>
+
+@if (ViewBag.Seguimientos != null)
+{
+    <ul class="list-group">
+        @foreach (var s in ViewBag.Seguimientos as List<Entidades.sp_ListarSeguimientosPorTicket_Result>)
+        {
+            <li class="list-group-item">
+                <strong>@(s.Fecha.HasValue ? s.Fecha.Value.ToString("dd/MM/yyyy HH:mm") : ""):</strong>
+                @s.Descripcion
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No hay seguimientos.</p>
+}
+
+@if (usuario.Rol == "Soportista" || usuario.Rol == "Supervisor")
+{
+    <hr />
+    <h4>Agregar Seguimiento</h4>
+    using (Html.BeginForm("AgregarSeguimiento", "Seguimientos", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <div class="form-group">
+            <label for="Descripcion">Descripción del seguimiento:</label>
+            <textarea name="Descripcion" class="form-control" rows="3" required>@Request.Form["Descripcion"]</textarea>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Guardar</button>
+    }
+}
+
+@if (Model.Evidencia != null && Model.Evidencia.Length > 0)
+{
+    <dt>Evidencia</dt>
+    <dd>
+        <img src="@Url.Action("MostrarEvidencia", "Tickets", new { id = Model.Id })" class="img-thumbnail" style="max-width: 400px;" />
+    </dd>
+}
+else
+{
+    <dt>Evidencia</dt>
+    <dd>No se ha cargado evidencia.</dd>
+}
+

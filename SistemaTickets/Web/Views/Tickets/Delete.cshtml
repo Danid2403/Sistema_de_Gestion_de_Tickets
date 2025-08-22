@@ -1,0 +1,36 @@
+﻿@model Entidades.sp_ObtenerTicketPorId_Result
+
+@{
+    ViewBag.Title = "Eliminar Ticket";
+}
+
+<h2>¿Está seguro que desea eliminar este ticket?</h2>
+
+<div>
+    <h4>Ticket</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Tipo</dt>
+        <dd>@Model.Tipo</dd>
+
+        <dt>Descripción</dt>
+        <dd>@Model.Descripcion</dd>
+
+        <dt>Categoría</dt>
+        <dd>@Model.Categoria</dd>
+
+        <dt>Estado</dt>
+        <dd>@Model.Estado</dd>
+
+        <dt>Fecha Ingreso</dt>
+        <dd>@(Model.FechaIngreso?.ToString("dd/MM/yyyy HH:mm"))</dd>
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Tickets", new { id = Model.Id }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+    }
+</div>

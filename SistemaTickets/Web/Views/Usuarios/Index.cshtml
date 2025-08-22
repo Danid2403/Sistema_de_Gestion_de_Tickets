@@ -1,0 +1,84 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Usuarios";
+    var activos = ViewBag.Activos as List<Entidades.sp_ListarUsuarios_Result>;
+    var inactivos = ViewBag.Inactivos as List<Entidades.sp_ListarUsuarios_Result>;
+    var usuario = Session["Usuario"] as Entidades.sp_LoginUsuario_Result;
+}
+
+<h2>Usuarios Activos</h2>
+
+@if (usuario != null && usuario.Rol == "Supervisor")
+{
+    <p>
+        @Html.ActionLink("Agregar Usuario", "Create", "Usuarios", null, new { @class = "btn btn-success mb-3" })
+    </p>
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cédula</th>
+            <th>Departamento</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in activos)
+        {
+            <tr>
+                <td>@u.Nombre</td>
+                <td>@u.Cedula</td>
+                <td>@u.Departamento</td>
+                <td>@u.Correo</td>
+                <td>@u.Rol</td>
+                <td>Sí</td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details", new { id = u.Id }, new { @class = "btn btn-info btn-sm" }) |
+                    @Html.ActionLink("Editar", "Edit", new { id = u.Id }, new { @class = "btn btn-warning btn-sm" }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = u.Id }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<h2>Usuarios Inactivos</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cédula</th>
+            <th>Departamento</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in inactivos)
+        {
+            <tr>
+                <td>@u.Nombre</td>
+                <td>@u.Cedula</td>
+                <td>@u.Departamento</td>
+                <td>@u.Correo</td>
+                <td>@u.Rol</td>
+                <td>No</td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details", new { id = u.Id }, new { @class = "btn btn-info btn-sm" }) |
+                    @Html.ActionLink("Editar", "Edit", new { id = u.Id }, new { @class = "btn btn-warning btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

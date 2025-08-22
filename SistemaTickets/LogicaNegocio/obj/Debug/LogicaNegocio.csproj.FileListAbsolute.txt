@@ -1,0 +1,14 @@
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\bin\Debug\LogicaNegocio.dll
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\bin\Debug\LogicaNegocio.pdb
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\bin\Debug\AccesoDatos.dll
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\bin\Debug\Entidades.dll
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\bin\Debug\EntityFramework.dll
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\bin\Debug\AccesoDatos.pdb
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\bin\Debug\AccesoDatos.dll.config
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\bin\Debug\Entidades.pdb
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\bin\Debug\EntityFramework.xml
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\obj\Debug\LogicaNegocio.csproj.AssemblyReference.cache
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\obj\Debug\LogicaNegocio.csproj.CoreCompileInputs.cache
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\obj\Debug\LogicaNe.53575492.Up2Date
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\obj\Debug\LogicaNegocio.dll
+D:\ing sistemas\6-7 cuatri\ingenieria y utilizacion de software\PROYECTO\SistemaTickets\LogicaNegocio\obj\Debug\LogicaNegocio.pdb

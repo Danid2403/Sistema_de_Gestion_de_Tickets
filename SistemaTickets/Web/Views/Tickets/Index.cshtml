@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Entidades.sp_ListarTickets_Result>
+@{
+    ViewBag.Title = "Lista de Tickets";
+}
+
+<h2 class="text-primary">Tickets</h2>
+
+<!-- Formulario de filtros -->
+@using (Html.BeginForm("Index", "Tickets", FormMethod.Get))
+{
+    <div class="form-inline mb-3">
+        <!-- Filtro por Estado -->
+        <label>Estado:</label>
+        @Html.DropDownList("estado", (SelectList)ViewBag.Estados, "Todos", new { @class = "form-control", onchange = "this.form.submit();" })
+
+        <!-- Filtro por Tipo -->
+        <label>Tipo:</label>
+        @Html.DropDownList("tipo", (SelectList)ViewBag.Tipos, "Todos", new { @class = "form-control", onchange = "this.form.submit();" })
+
+        <!-- Filtro por Categoría -->
+        <label>Categoría:</label>
+        @Html.DropDownList("categoria", (SelectList)ViewBag.Categorias, "Todos", new { @class = "form-control", onchange = "this.form.submit();" })
+
+        <!-- Filtro por Usuario -->
+        <label>Usuario:</label>
+        @Html.DropDownList("usuarioId", (SelectList)ViewBag.Usuarios, "Todos", new { @class = "form-control", onchange = "this.form.submit();" })
+
+        <!-- Filtro por Soportista -->
+        <label>Soportista:</label>
+        @Html.DropDownList("soportistaId", (SelectList)ViewBag.Soportistas, "Todos", new { @class = "form-control", onchange = "this.form.submit();" })
+
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+}
+
+
+<!-- Botón para crear nuevo ticket si es usuario -->
+@if (Session["Usuario"] != null && ((Entidades.sp_LoginUsuario_Result)Session["Usuario"]).Rol == "Usuario")
+{
+    <p>
+        @Html.ActionLink("Crear nuevo ticket", "Create", "Tickets", null, new { @class = "btn btn-success" })
+    </p>
+}
+
+<!-- Tabla de resultados -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Departamento</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th>Fecha Ingreso</th>
+            <th>Soportista</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@ticket.Id</td>
+                <td>@ticket.NombreUsuario</td>
+                <td>@ticket.Departamento</td>
+                <td>@ticket.Tipo</td>
+                <td>@ticket.Descripcion</td>
+                <td>@ticket.Categoria</td>
+                <td>@ticket.Estado</td>
+                <td>@(ticket.FechaIngreso?.ToString("dd/MM/yyyy HH:mm"))</td>
+                <td>@ticket.NombreSoportista</td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details", new { id = ticket.Id }, new { @class = "btn btn-info btn-sm" })
+
+                    @if (((Entidades.sp_LoginUsuario_Result)Session["Usuario"]).Rol != "Usuario")
+                    {
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Editar", "Edit", new { id = ticket.Id }, new { @class = "btn btn-warning btn-sm" })
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Eliminar", "Delete", new { id = ticket.Id }, new { @class = "btn btn-danger btn-sm" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

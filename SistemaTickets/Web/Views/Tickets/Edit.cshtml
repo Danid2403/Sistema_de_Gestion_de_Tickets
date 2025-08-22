@@ -1,0 +1,79 @@
+﻿@model Entidades.Tickets
+
+@{
+    ViewBag.Title = "Editar Ticket";
+}
+
+<h2>Editar Ticket</h2>
+
+@using (Html.BeginForm("Edit", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.UsuarioId)
+    @Html.HiddenFor(model => model.FechaIngreso)
+
+    <div class="form-horizontal">
+        <hr />
+
+        @* Tipo *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tipo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Tipo, new SelectList(new[] { "Redes", "Software", "Hardware" }, Model.Tipo), "Seleccione tipo", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* Descripción *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Descripcion, 5, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* Categoría *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Categoria, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Categoria, new SelectList(new[] { "Bajo", "Medio", "Alto" }, Model.Categoria), "Seleccione categoría", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* Estado *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Estado, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Estado, new SelectList(new[] { "Abierto", "En revisión", "En proceso", "Finalizado" }, Model.Estado), "Seleccione estado", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* Soportista Asignado *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoportistaAsignadoId, "Soportista", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SoportistaAsignadoId, (SelectList)ViewBag.Soportistas, "Seleccione soportista", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SoportistaAsignadoId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* Evidencia nueva *@
+        <div class="form-group">
+            <label class="control-label col-md-2">Nueva Evidencia (opcional)</label>
+            <div class="col-md-10">
+                <input type="file" name="evidenciaArchivo" class="form-control" accept=".jpg,.jpeg,.png,.pdf" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 mt-2">
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    </div>
+}
